@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { graphql, gql } from 'react-apollo'
 import { connect } from 'react-redux'
 import { updateForm, resetForm } from '../../redux/Actions/sync'
+import styles from './styles'
 
 class CreateUserForm extends Component {
   onFirstNameChange(text) {
@@ -35,7 +36,7 @@ class CreateUserForm extends Component {
 
     return (
       <div>
-        <div>
+        <div style={styles.homeLinkStyles}>
             <Link to="/" > Go Home </Link>
         </div>
         <div>
@@ -44,6 +45,7 @@ class CreateUserForm extends Component {
             type="text"
             placeholder="First Name"
             value={firstName}
+            style={styles.inputStyles}
           />
 
           <input
@@ -51,10 +53,12 @@ class CreateUserForm extends Component {
             type="text"
             placeholder="Last Name"
             value={lastName}
+            style={styles.inputStyles}
           />
 
           <button
             onClick={this.onSubmit.bind(this)}
+            style={styles.submitStyles}
           >
             Create User
           </button>
