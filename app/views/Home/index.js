@@ -21,6 +21,7 @@ class Home extends React.PureComponent {
       <div>
         {usersToRender.map((user, index) => {
           const { firstName, lastName, id } = user
+          if (firstName === '' || lastName === '') return
           return (
             <div key={id} style={styles.userListStyles}>
               <Link
