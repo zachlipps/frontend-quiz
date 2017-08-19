@@ -2,10 +2,28 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { graphql, gql } from 'react-apollo'
 import { connect } from 'react-redux'
+import { updateForm, resetForm } from '../../redux/Actions/sync';
 
 class CreateUserForm extends Component {
+  onFirstNameChange(text) {
+    this.props.updateForm({
+      form: 'createUser',
+      key: 'firstName',
+      value: text.target.value,
+    });
+  }
+
+  onLastNameChange(text) {
+    this.props.updateForm({
+      form: 'createUser',
+      key: 'lastName',
+      value: text.target.value,
+    });
+  }
 
   render() {
+    const { firstName, lastName } = this.props.forms;
+
     return (
       <div>
         <div>
@@ -13,16 +31,20 @@ class CreateUserForm extends Component {
         </div>
         <div>
           <input
+            onChange={this.onFirstNameChange.bind(this)}
             type="text"
             placeholder="First Name"
+            value={firstName}
           />
 
           <input
+            onChange={this.onLastNameChange.bind(this)}
             type="text"
             placeholder="Last Name"
+            value={lastName}
           />
 
-          <button> 
+          <button>
             Create User
           </button>
 
@@ -49,4 +71,12 @@ const CREATE_USER_MUTATION = gql`
   }
 `;
 
-export default CreateUserForm;
+const mutativeUserForm = graphql(CREATE_USER_MUTATION, { name: 'CreateUserMutation' })(CreateUserForm);
+
+const mapStateToProps = (state) => {
+  return {
+    forms: state.forms.createUser,
+  };
+};
+
+export default connect(mapStateToProps, { updateForm, resetForm })(mutativeUserForm);
