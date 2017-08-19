@@ -10,7 +10,6 @@ export default {
     margin: 5,
     width: 250,
     borderRight: '1px solid black',
-    position: 'fixed',
     height: '100%',
   },
   homeText: {
