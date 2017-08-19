@@ -46,13 +46,18 @@ class Home extends React.PureComponent {
         <Link to="about">
           Link to about
         </Link>
+        <div>
+          <Link to="create">
+            Link to create
+          </Link>
+        </div>
         {this.renderUsers()}
       </div>
     )
   }
 }
 
-const ALL_USERS_QUERY = gql`
+export const ALL_USERS_QUERY = gql`
   query AllUsersQuery {
     allUsers {
       createdAt,

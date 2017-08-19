@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { graphql, gql } from 'react-apollo'
 import { connect } from 'react-redux'
-import { updateForm, resetForm } from '../../redux/Actions/sync';
+import { updateForm, resetForm } from '../../redux/Actions/sync'
 
 class CreateUserForm extends Component {
   onFirstNameChange(text) {
@@ -19,6 +19,15 @@ class CreateUserForm extends Component {
       key: 'lastName',
       value: text.target.value,
     });
+  }
+
+  onSubmit() {
+    const { forms, resetForm } = this.props
+    this.props.CreateUserMutation( { variables: { firstName: forms.firstName, lastName: forms.lastName } })
+    this.props.resetForm({
+      form: 'createUser',
+    });
+    this.props.history.push('/');
   }
 
   render() {
@@ -44,7 +53,9 @@ class CreateUserForm extends Component {
             value={lastName}
           />
 
-          <button>
+          <button
+            onClick={this.onSubmit.bind(this)}
+          >
             Create User
           </button>
 
@@ -71,7 +82,9 @@ const CREATE_USER_MUTATION = gql`
   }
 `;
 
-const mutativeUserForm = graphql(CREATE_USER_MUTATION, { name: 'CreateUserMutation' })(CreateUserForm);
+const mutativeUserForm = graphql(CREATE_USER_MUTATION, { 
+  name: 'CreateUserMutation',
+})(CreateUserForm);
 
 const mapStateToProps = (state) => {
   return {
