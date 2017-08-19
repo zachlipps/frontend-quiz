@@ -2,7 +2,8 @@ import React from 'react'
 import {
   Link,
 } from 'react-router-dom'
-import { graphql, gql } from 'react-apollo';
+import { graphql, gql } from 'react-apollo'
+import styles from './styles'
 
 class Home extends React.PureComponent {
   renderUsers() {
@@ -21,8 +22,9 @@ class Home extends React.PureComponent {
         {usersToRender.map((user, index) => {
           const { firstName, lastName, id } = user
           return (
-            <div key={id}>
+            <div key={id} style={styles.userListStyles}>
               <Link
+                style={styles.linkStyles}
                 to={{
                   pathname: `/show/${id}`,
                   state: {
@@ -41,8 +43,8 @@ class Home extends React.PureComponent {
 
   render() {
     return (
-      <div>
-        <p>Home Component</p>
+      <div style={styles.general}>
+        <p style={styles.homeText}>Home Component</p>
         <Link to="about">
           Link to about
         </Link>
